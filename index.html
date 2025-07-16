@@ -1,88 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Clint – Web & Game Developer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clint – Futuristic Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-color: #0d1117;
-      --text-color: #e6f1ff;
-      --accent-color: #00ffc8;
-      --panel-color: #161b22;
-      --glow: rgba(0, 255, 200, 0.3);
-    }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body {
+    body, html {
+      height: 100%;
       font-family: 'Orbitron', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 40px 10px;
-      overflow-x: hidden;
+      overflow: hidden;
+      color: #ffffff;
     }
 
-    .glow-bg {
+    /* 🔹 Video Background */
+    #bg-video {
       position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -3;
+      filter: brightness(0.25);
+    }
+
+    /* 🔹 Matrix Canvas */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -2;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 50% 30%, var(--glow), transparent 70%);
-      z-index: -1;
-      animation: move 8s infinite alternate;
-    }
-
-    @keyframes move {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-20px, 20px); }
+      pointer-events: none;
     }
 
     .container {
+      position: relative;
+      z-index: 1;
       max-width: 850px;
-      width: 100%;
-      background: var(--panel-color);
+      margin: 50px auto;
       padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
       border-radius: 16px;
-      box-shadow: 0 0 30px var(--glow);
+      box-shadow: 0 0 20px #00ffc8;
+      backdrop-filter: blur(10px);
     }
 
     h1 {
       font-size: 2.5rem;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-      animation: typing 2s steps(22), blink 0.7s step-end infinite;
+      color: #00ffc8;
+      margin-bottom: 20px;
+      border-right: 3px solid #00ffc8;
       white-space: nowrap;
       overflow: hidden;
-      border-right: 3px solid var(--accent-color);
+      animation: typing 2s steps(25), blink 0.8s step-end infinite;
     }
 
     @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
+      from { width: 0; }
+      to { width: 100%; }
     }
 
     @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    section {
-      margin-bottom: 2rem;
+      50% { border-color: transparent; }
     }
 
     h2 {
-      color: var(--accent-color);
-      border-bottom: 1px solid #333;
-      margin-bottom: 10px;
-      font-size: 1.3rem;
+      margin-top: 30px;
+      color: #00ffc8;
+      border-bottom: 1px solid #00ffc8;
+      padding-bottom: 5px;
     }
 
     ul {
@@ -91,95 +86,113 @@
     }
 
     li {
-      background: #20232a;
-      padding: 10px 14px;
-      margin: 6px 0;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
       border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-
-    li:hover {
-      background: #2d313a;
-    }
-
-    p {
-      line-height: 1.6;
-      font-size: 1rem;
+      margin: 8px 0;
     }
 
     .button {
       display: inline-block;
       margin-top: 20px;
       padding: 12px 24px;
-      background: var(--accent-color);
+      background: #00ffc8;
       color: #000;
       border: none;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
-      box-shadow: 0 0 10px var(--accent-color);
+      box-shadow: 0 0 12px #00ffc8;
       transition: transform 0.3s ease;
     }
 
     .button:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 18px var(--accent-color);
     }
 
     footer {
       margin-top: 40px;
       text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 25px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
+      font-size: 0.85rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <div class="glow-bg"></div>
+
+  <!-- 🔹 Video Background -->
+  <video id="bg-video" autoplay muted loop>
+    <source src="https://cdn.pixabay.com/video/2023/03/23/157436-814235211_large.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 🔹 Matrix Canvas -->
+  <canvas id="matrix"></canvas>
+
+  <!-- 🔹 Main Content -->
   <div class="container">
     <h1>Clint – Web & Game Developer</h1>
+    <p>Hello! I'm a high school student and solo freelancer from South Africa 🇿🇦. I create futuristic websites using HTML, CSS, and JavaScript, and build unique game systems in Roblox Lua and Python.</p>
 
-    <section>
-      <p>Hello! I'm a high school student and solo freelancer from South Africa 🇿🇦. I design futuristic, responsive websites using HTML, CSS, and JavaScript. I also develop smart game scripts in Roblox Lua and Python, bringing creativity and logic together.</p>
-    </section>
+    <h2>Skills</h2>
+    <ul>
+      <li>Responsive Website Design (HTML/CSS/JS)</li>
+      <li>Roblox Game Development (Lua)</li>
+      <li>Python Tools, Bots, and Automation</li>
+    </ul>
 
-    <section>
-      <h2>Skills</h2>
-      <ul>
-        <li>Website Design (HTML, CSS, JavaScript)</li>
-        <li>Game Mechanics & Combat (Roblox Lua)</li>
-        <li>Python Tools, Bots, and Automation</li>
-      </ul>
-    </section>
+    <h2>Services</h2>
+    <ul>
+      <li>Website creation, polish, and bug fixing</li>
+      <li>Roblox abilities, UI systems, and logic</li>
+      <li>Python scripting, data handling, and mini AI tools</li>
+    </ul>
 
-    <section>
-      <h2>Services I Offer</h2>
-      <ul>
-        <li>Fully custom and mobile-friendly websites</li>
-        <li>Roblox scripting: abilities, UIs, combat systems</li>
-        <li>Python automation, small AI tools, data handling</li>
-      </ul>
-    </section>
+    <h2>Need Help?</h2>
+    <p>Even if it's not coding-related, I’m open to helping you solve creative or tech problems. Let's bring your ideas to life.</p>
+    <a class="button" href="https://www.fiverr.com/yourusername" target="_blank">Hire Me on Fiverr</a>
 
-    <section>
-      <h2>Need Something Else?</h2>
-      <p>If you need help beyond coding — like advice, ideas, or even a custom solution — message me. I’ll do my best to assist or guide you in the right direction.</p>
-      <a class="button" href="https://www.fiverr.com/ClintCodes" target="_blank">Hire Me on Fiverr</a>
-    </section>
-
-    <footer>
-      &copy; 2025 ClintDev | Designed with code and creativity 🧠
-    </footer>
+    <footer>© 2025 ClintDev • Designed with creativity and code ⚡</footer>
   </div>
+
+  <!-- 🔹 JavaScript Matrix Effect -->
+  <script>
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "01";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ffc8";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+
+    // Resize canvas if window changes
+    window.addEventListener("resize", () => {
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+    });
+  </script>
 </body>
 </html>
