@@ -2,114 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Clint – Futuristic Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0; padding: 0; box-sizing: border-box;
     }
-
-    body, html {
-      height: 100%;
-      font-family: 'Orbitron', sans-serif;
+    html, body {
+      height: 100%; 
+      font-family: 'Poppins', sans-serif;
       overflow: hidden;
-      color: #ffffff;
+      color: #e6f1ff;
+      background: #0d1117;
     }
-
-    /* 🔹 Video Background */
     #bg-video {
       position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
+      top: 0; left: 0;
+      min-width: 100%; min-height: 100%;
       object-fit: cover;
+      filter: brightness(0.3);
       z-index: -3;
-      filter: brightness(0.25);
     }
-
-    /* 🔹 Matrix Canvas */
     canvas {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       z-index: -2;
-      width: 100%;
-      height: 100%;
       pointer-events: none;
     }
-
     .container {
       position: relative;
       z-index: 1;
       max-width: 850px;
       margin: 50px auto;
       padding: 40px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(22, 27, 34, 0.8);
       border-radius: 16px;
       box-shadow: 0 0 20px #00ffc8;
       backdrop-filter: blur(10px);
     }
-
     h1 {
+      font-weight: 600;
       font-size: 2.5rem;
       color: #00ffc8;
-      margin-bottom: 20px;
       border-right: 3px solid #00ffc8;
       white-space: nowrap;
       overflow: hidden;
       animation: typing 2s steps(25), blink 0.8s step-end infinite;
+      margin-bottom: 20px;
     }
-
     @keyframes typing {
       from { width: 0; }
       to { width: 100%; }
     }
-
     @keyframes blink {
       50% { border-color: transparent; }
     }
-
     h2 {
-      margin-top: 30px;
       color: #00ffc8;
       border-bottom: 1px solid #00ffc8;
       padding-bottom: 5px;
+      margin-top: 30px;
+      font-weight: 600;
     }
-
     ul {
       list-style: none;
       padding-left: 0;
     }
-
     li {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255 255 255 / 0.05);
       padding: 10px;
-      border-radius: 8px;
       margin: 8px 0;
+      border-radius: 8px;
     }
-
     .button {
       display: inline-block;
       margin-top: 20px;
       padding: 12px 24px;
       background: #00ffc8;
       color: #000;
-      border: none;
       border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
       box-shadow: 0 0 12px #00ffc8;
+      text-decoration: none;
       transition: transform 0.3s ease;
+      border: none;
+      cursor: pointer;
     }
-
     .button:hover {
       transform: scale(1.05);
     }
-
     footer {
       margin-top: 40px;
       text-align: center;
@@ -119,17 +102,13 @@
   </style>
 </head>
 <body>
-
-  <!-- 🔹 Video Background -->
-  <video id="bg-video" autoplay muted loop>
-    <source src="https://cdn.pixabay.com/video/2023/03/23/157436-814235211_large.mp4" type="video/mp4">
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="https://cdn.pixabay.com/video/2023/03/23/157436-814235211_large.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
-  <!-- 🔹 Matrix Canvas -->
   <canvas id="matrix"></canvas>
 
-  <!-- 🔹 Main Content -->
   <div class="container">
     <h1>Clint – Web & Game Developer</h1>
     <p>Hello! I'm a high school student and solo freelancer from South Africa 🇿🇦. I create futuristic websites using HTML, CSS, and JavaScript, and build unique game systems in Roblox Lua and Python.</p>
@@ -150,48 +129,45 @@
 
     <h2>Need Help?</h2>
     <p>Even if it's not coding-related, I’m open to helping you solve creative or tech problems. Let's bring your ideas to life.</p>
-    <a class="button" href="https://www.fiverr.com/yourusername" target="_blank">Hire Me on Fiverr</a>
+    <a class="button" href="https://www.fiverr.com/yourusername" target="_blank" rel="noopener noreferrer">Hire Me on Fiverr</a>
 
     <footer>© 2025 ClintDev • Designed with creativity and code ⚡</footer>
   </div>
 
-  <!-- 🔹 JavaScript Matrix Effect -->
   <script>
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
-
-    canvas.height = window.innerHeight;
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    const letters = "01";
+    const letters = '01';
     const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = new Array(columns).fill(1);
 
-    function drawMatrix() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#00ffc8";
-      ctx.font = fontSize + "px monospace";
+
+      ctx.fillStyle = '#00ffc8';
+      ctx.font = fontSize + 'px monospace';
 
       for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
-
         drops[i]++;
       }
     }
 
-    setInterval(drawMatrix, 33);
+    setInterval(draw, 33);
 
-    // Resize canvas if window changes
-    window.addEventListener("resize", () => {
-      canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
 </body>
